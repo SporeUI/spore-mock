@@ -24,6 +24,7 @@
     "ip": "^1.1.4",
     "lodash": "^4.17.4",
     "pug": "^2.0.0-beta11",
+    "spore-kit-str": "^0.2.0",
     "walk-sync": "^0.3.1"
   },
   "devDependencies": {

@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var $program = require('commander');
+var $mock = require('../');
+var $conf = require('../package.json');
+
+$program
+	.version($conf.version)
+	.option('-c, --config [config]', 'Specify the config file path')
+	.option('-d, --debug', 'Enable debug mode')
+	.parse(process.argv);
+
+$mock({
+	configFilePath: $program.config,
+	debug: !!$program.debug
+});

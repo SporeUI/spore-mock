@@ -52,14 +52,10 @@ $gulp.task('lint', function() {
     );
 });
 
-$gulp.task('mocha', function(done) {
-	$gulp.src('test/test.js').pipe(
+$gulp.task('mocha', function() {
+	return $gulp.src('test/test.js').pipe(
 		$gulpMocha()
-	).on('error', function() {
-		done();
-	}).on('_result', function() {
-		done();
-	});
+	);
 });
 
 $gulp.task('test', function() {

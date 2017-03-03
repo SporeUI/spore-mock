@@ -1,12 +1,9 @@
-var $fs = require('fs');
-var $path = require('path');
-
 var $del = require('del');
 var $crossSpawn = require('cross-spawn');
 var $runSequence = require('run-sequence');
 
 var $gulp = require('gulp');
-var $gulpUtil = require('gulp-util');
+var $gulpMocha = require('gulp-mocha');
 var $gulpEslint = require('gulp-eslint');
 
 var $eslintrc = require('./.eslintrc');
@@ -22,6 +19,21 @@ $gulp.task('wait', function(done) {
 	setTimeout(done, 1000);
 });
 
+var server = null;
+
+$gulp.task('startServer', function(done) {
+	server = $crossSpawn('./bin/spore-mock', ['-c', './test/mock.js'], {
+		stdio: 'inherit'
+	});
+	setTimeout(done, 1000);
+});
+
+$gulp.task('stopServer', function(done) {
+	if (server && server.kill) {
+		server.kill('SIGHUP');
+	}
+	done();
+});
 
 $gulp.task('lint', function() {
 	if ($eslintrc.globals && !Array.isArray($eslintrc.globals)) {
@@ -40,12 +52,22 @@ $gulp.task('lint', function() {
     );
 });
 
-// =================
-// common tasks
-// =================
+$gulp.task('mocha', function(done) {
+	$gulp.src('test/test.js').pipe(
+		$gulpMocha()
+	).on('error', function() {
+		done();
+	}).on('_result', function() {
+		done();
+	});
+});
+
 $gulp.task('test', function() {
 	return $runSequence(
-		'lint'
+		'lint',
+		'startServer',
+		'mocha',
+		'stopServer'
 	);
 });
 

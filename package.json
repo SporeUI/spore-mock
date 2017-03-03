@@ -1,6 +1,6 @@
 {
   "name": "spore-mock",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "一个mock服务，支持mock数据模块化",
   "main": "index.js",
   "scripts": {
@@ -28,10 +28,14 @@
     "walk-sync": "^0.3.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "cross-spawn": "^5.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^4.0.1",
     "gulp-util": "^3.0.8",
+    "request": "^2.79.0",
     "run-sequence": "^1.2.2"
   }
 }

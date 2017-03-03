@@ -1,6 +1,6 @@
 {
   "name": "spore-mock",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "一个mock服务，支持mock数据模块化",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,20 @@
   },
   "homepage": "https://github.com/SporeUI/spore-mock#readme",
   "dependencies": {
-    "commander": "^2.9.0"
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "cors": "^2.8.1",
+    "express": "^4.15.0",
+    "ip": "^1.1.4",
+    "lodash": "^4.17.4",
+    "pug": "^2.0.0-beta11",
+    "walk-sync": "^0.3.1"
+  },
+  "devDependencies": {
+    "cross-spawn": "^5.1.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8",
+    "run-sequence": "^1.2.2"
   }
 }

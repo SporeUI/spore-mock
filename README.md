@@ -25,6 +25,8 @@ $sporeMock({
 
 ## 配置文件范例
 
+mock.js:
+
 ```script
 var $path = require('path');
 
@@ -50,23 +52,27 @@ module.exports = {
 		text: '开发服务 http://{{publicIp}}:8090'
 	}],
 
+	// 源文件入口页面集合
 	// 页面默认使用 pug 渲染模板
 	// 页面 mock 需要 entryPages, distPages, entryMock 3 个选项
-	// 源文件入口页面集合
 	entryPages: {
 		path: 'src/entry',
 		globs: ['**/*.pug', '**/*.html']
 	},
-	// webpack 生成的静态页面
-	distPages: {
-		path: 'dist/html',
-		globs: ['**/*.html']
-	},
 	// 页面所需 mock 数据的入口
+	// 如果 mock 文件相对于 entryMock.path 的相对路径 与 entryPages 下页面相对路径一致
+	// 则该 js 提供的数据服务于对应页面
 	entryMock: {
 		route: '/html',
 		path: 'src/mock',
 		globs: ['**/*.js']
+	},
+	// webpack 生成的静态页面，应当为 webpack-html-plugin 生成的文件
+	// 如果静态页面文件相对于 entryMock.path 的相对路径 与 entryPages 下页面相对路径一致
+	// 则抽取 css 与 js 文件自动替换到输出的页面
+	distPages: {
+		path: 'dist/html',
+		globs: ['**/*.html']
 	},
 
 	// 接口所需 mock 数据的入口
@@ -86,6 +92,26 @@ module.exports = {
 	]
 };
 ```
+
+## 使用说明
+
+访问的页面添加 fedebug=json 参数可直接查看 json 配置
+
+目前仅支持 pug 模板
+
+pug 模板入口数据为 `htmlWebpackPlugin.options.mock`
+
+接口支持 jsonp , cors
+
+配合代理服务使用可实现任意 mock 需求
+
+提供 mock 数据的文件为 js , 遵循 cmd 规范
+
+更新数据 js 文件，接口数据自动更新
+
+mock 文件可执行，可通过 `module.exports = function(res, req){}` 来动态执行
+
+使用 Mock.js 来协助生成随机数据
 
 ## Release History
 

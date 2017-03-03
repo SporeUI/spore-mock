@@ -1,4 +1,5 @@
 var $fs = require('fs');
+var $path = require('path');
 var $lodash = require('lodash');
 var $server = require('./lib/server');
 
@@ -8,13 +9,31 @@ function SporeMock(options) {
 		configFilePath: ''
 	}, options);
 
-	var serverConfig = {};
+	var configFilePath = '';
 	if (conf.configFilePath) {
-		if (!$fs.existsSync(conf.configFilePath)) {
-			serverConfig = require(conf.configFilePath);
+		configFilePath = $path.resolve(process.cwd(), conf.configFilePath);
+	}
+
+	if (conf.debug) {
+		console.log('----');
+		console.log('configFilePath:', configFilePath);
+	}
+
+	var serverConfig = {};
+	if (configFilePath) {
+		if ($fs.existsSync(configFilePath)) {
+			serverConfig = require(configFilePath);
 		}
 		serverConfig = serverConfig || {};
 	}
+
+	if (conf.debug) {
+		console.log('----');
+		console.log('serverConfig:');
+		console.log(serverConfig);
+	}
+
+	serverConfig.debug = conf.debug || serverConfig.debug;
 
 	return $server(serverConfig);
 }

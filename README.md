@@ -115,4 +115,5 @@ mock 文件可执行，可通过 `module.exports = function(res, req){}` 来动�
 
 ## Release History
 
+ * 2017-03-14 v0.1.1 entry 数据改为使用 exports.resolve 方法来返回动态数据
  * 2017-03-03 v0.1.0 发布第一个正式版

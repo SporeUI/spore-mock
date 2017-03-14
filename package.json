@@ -1,6 +1,6 @@
 {
   "name": "spore-mock",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "一个mock服务，支持mock数据模块化",
   "main": "index.js",
   "scripts": {

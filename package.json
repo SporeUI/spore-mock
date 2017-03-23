@@ -19,8 +19,7 @@
     "bin",
     "lib",
     "index.js",
-    "README.md",
-    "LICENSE"
+    "index.pug"
   ],
   "homepage": "https://github.com/SporeUI/spore-mock#readme",
   "dependencies": {

@@ -15,6 +15,13 @@
   "bugs": {
     "url": "https://github.com/SporeUI/spore-mock/issues"
   },
+  "files": [
+    "bin",
+    "lib",
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
   "homepage": "https://github.com/SporeUI/spore-mock#readme",
   "dependencies": {
     "colors": "^1.1.2",

@@ -7,8 +7,17 @@ var $request = require('request');
 var describe = $mocha.describe;
 var it = $mocha.it;
 var before = $mocha.before;
+var after = $mocha.after;
 
 var host = 'http://127.0.0.1:8091';
+
+function changeTimeStamp(str) {
+	str = str || '123123';
+	var file = './test/src/mods/timestamp.js';
+	var content = $fs.readFileSync(file, 'utf8');
+	content = content.replace(/\d+/, str);
+	$fs.writeFileSync(file, content);
+}
 
 describe('index', function() {
 
@@ -141,6 +150,7 @@ describe('entry', function() {
 		var body;
 
 		before(function(done) {
+			changeTimeStamp(456456);
 			$request(host + '/html/demo/test.html?fedebug=json', function(err, rs, bd) {
 				error = err;
 				body = bd;
@@ -161,6 +171,17 @@ describe('entry', function() {
 			}
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.title).to.equal('test.pug');
+		});
+
+		it('json 内容可以实时更新', function() {
+			var data = null;
+			try {
+				data = JSON.parse(body);
+			} catch (err) {
+				console.log(err);
+			}
+			$chai.expect(data).to.be.an('object');
+			$chai.expect(data.timestamp.timestamp).to.equal('456456');
 		});
 
 	});
@@ -202,6 +223,17 @@ describe('api', function() {
 			$chai.expect(data.msg).to.equal('test ok');
 		});
 
+		it('json 内容可以实时更新', function() {
+			var data = null;
+			try {
+				data = JSON.parse(body);
+			} catch (err) {
+				console.log(err);
+			}
+			$chai.expect(data).to.be.an('object');
+			$chai.expect(data.timestamp.timestamp).to.equal('456456');
+		});
+
 	});
 
 	describe('jsonp', function() {
@@ -227,6 +259,11 @@ describe('api', function() {
 			$chai.expect(/^jsonp\(/.test(body)).to.be.true;
 		});
 
+	});
+
+	after(function(done) {
+		changeTimeStamp();
+		done();
 	});
 
 });

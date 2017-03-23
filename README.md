@@ -54,7 +54,7 @@ module.exports = {
 
 	// 源文件入口页面集合
 	// 页面默认使用 pug 渲染模板
-	// 页面 mock 需要 entryPages, distPages, entryMock 3 个选项
+	// 页面 mock 需要 entryPages, entryMock 2 个选项
 	entryPages: {
 		path: 'src/entry',
 		globs: ['**/*.pug', '**/*.html']
@@ -66,13 +66,6 @@ module.exports = {
 		route: '/html',
 		path: 'src/mock',
 		globs: ['**/*.js']
-	},
-	// webpack 生成的静态页面，应当为 webpack-html-plugin 生成的文件
-	// 如果静态页面文件相对于 entryMock.path 的相对路径 与 entryPages 下页面相对路径一致
-	// 则抽取 css 与 js 文件自动替换到输出的页面
-	distPages: {
-		path: 'dist/html',
-		globs: ['**/*.html']
 	},
 
 	// 接口所需 mock 数据的入口
@@ -115,5 +108,6 @@ mock 文件可执行，可通过 `module.exports = function(res, req){}` 来动�
 
 ## Release History
 
+ * 2017-03-23 v0.2.0 不再结合 htmlWebpackPlugin 的生成文件自动引用 js 与 css ，要求模板指定引用文件
  * 2017-03-14 v0.1.1 entry 数据改为使用 exports.resolve 方法来返回动态数据
  * 2017-03-03 v0.1.0 发布第一个正式版

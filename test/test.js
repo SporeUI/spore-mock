@@ -198,11 +198,17 @@ describe('api', function() {
 
 		var error;
 		var body;
+		var json;
 
 		before(function(done) {
 			$request(host + '/api/test', function(err, rs, bd) {
 				error = err;
 				body = bd;
+				try {
+					json = JSON.parse(body);
+				} catch (err) {
+					console.log(err);
+				}
 				done();
 			});
 		});
@@ -212,26 +218,22 @@ describe('api', function() {
 		});
 
 		it('接口输出为一个json', function() {
-			var data = null;
-			try {
-				data = JSON.parse(body);
-			} catch (err) {
-				console.log(err);
-			}
+			var data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(0);
 			$chai.expect(data.msg).to.equal('test ok');
 		});
 
 		it('json 内容可以实时更新', function() {
-			var data = null;
-			try {
-				data = JSON.parse(body);
-			} catch (err) {
-				console.log(err);
-			}
+			var data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.timestamp.timestamp).to.equal('456456');
+		});
+
+		it('json 列表数据自动mock', function() {
+			var data = json;
+			$chai.expect(data.list).to.be.an('array');
+			$chai.expect(data.list.length).to.equal(10);
 		});
 
 	});

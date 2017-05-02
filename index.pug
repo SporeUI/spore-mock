@@ -10,6 +10,8 @@ html
 			.p-title{padding:20px; margin-bottom: 0;}
 			.p-title h1{margin:0; text-transform: uppercase;}
 			.p-links{padding: 10px; border-bottom: 1px solid #ddd;}
+			.p-pages{margin:0; padding: 10px; border-bottom: 1px solid #ddd;}
+			.p-pages ol{padding: 0 0 0 20px;}
 			.p-qrbox{list-style: none; margin: 0; padding: 10px; border-bottom: 1px solid #ddd;}
 			.p-qrbox img{display: block; margin: 10px auto; width: 70%; height: 70%; max-width: 300px;}
 			.p-links .btn, .p-qrbox .btn{text-align: left;}
@@ -18,10 +20,13 @@ html
 			h1 index
 
 		if out.pages
-			.p-links
-				each path in out.pages
-					- path = path.replace(/\.pug$/, '.html')
-					a.btn.btn-default.btn-block(href='html/' + path, target="_blank") #{path}
+			.p-pages
+				h4 page list:
+				ol
+					each path in out.pages
+						- path = path.replace(/\.pug$/, '.html')
+						li
+							a(href='html/' + path, target="_blank") #{path}
 
 		if out.qrlinks
 			ul.p-qrbox

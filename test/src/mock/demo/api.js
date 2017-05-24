@@ -7,11 +7,9 @@ var data = {
 	msg: 'test ok'
 };
 
-data.resolve = function(data) {
+module.exports = function(req, res) {
 	data.ret = 1;
 	data.msg = 'modified';
 	return data;
 };
-
-module.exports = data;
 

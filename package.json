@@ -1,6 +1,6 @@
 {
   "name": "spore-mock",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "一个mock服务，支持mock数据模块化",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,7 @@
   "files": [
     "bin",
     "lib",
-    "index.js",
-    "index.pug"
+    "index.js"
   ],
   "homepage": "https://github.com/SporeUI/spore-mock#readme",
   "dependencies": {

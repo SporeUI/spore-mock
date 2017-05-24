@@ -5,7 +5,8 @@ module.exports = {
 	root: $path.resolve(__dirname),
 	port: '8091',
 	mock: './src/mock',
-	entry: './src/entry',
+	template: './src/entry',
+	templateRoute: '/html',
 	// 链接列表，用于显示到首页
 	links: [
 		{

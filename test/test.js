@@ -41,8 +41,8 @@ describe('index', function() {
 		});
 
 		it('展示 entry 链接', function() {
-			$chai.expect(/href="demo\/static"/.test(body)).to.be.true;
-			$chai.expect(/href="demo\/test"/.test(body)).to.be.true;
+			$chai.expect(/href="\/html\/demo\/static"/.test(body)).to.be.true;
+			$chai.expect(/href="\/html\/demo\/test"/.test(body)).to.be.true;
 		});
 
 		it('展示二维码链接', function() {

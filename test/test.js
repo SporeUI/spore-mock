@@ -41,8 +41,8 @@ describe('index', function() {
 		});
 
 		it('展示 entry 链接', function() {
-			$chai.expect(/href="html\/demo\/static.html"/.test(body)).to.be.true;
-			$chai.expect(/href="html\/demo\/test.html"/.test(body)).to.be.true;
+			$chai.expect(/href="demo\/static"/.test(body)).to.be.true;
+			$chai.expect(/href="demo\/test"/.test(body)).to.be.true;
 		});
 
 		it('展示二维码链接', function() {
@@ -100,7 +100,7 @@ describe('entry', function() {
 		var body;
 
 		before(function(done) {
-			$request(host + '/html/demo/static.html', function(err, rs, bd) {
+			$request(host + '/demo/static.html', function(err, rs, bd) {
 				error = err;
 				body = bd;
 				done();
@@ -125,7 +125,7 @@ describe('entry', function() {
 		var body;
 
 		before(function(done) {
-			$request(host + '/html/demo/test.html', function(err, rs, bd) {
+			$request(host + '/demo/test.html', function(err, rs, bd) {
 				error = err;
 				body = bd;
 				done();
@@ -151,7 +151,7 @@ describe('entry', function() {
 
 		before(function(done) {
 			changeTimeStamp(456456);
-			$request(host + '/html/demo/test.html?fedebug=json', function(err, rs, bd) {
+			$request(host + '/demo/test.html?fedebug=json', function(err, rs, bd) {
 				error = err;
 				body = bd;
 				done();
@@ -259,6 +259,52 @@ describe('api', function() {
 
 		it('为jsonp格式', function() {
 			$chai.expect(/^jsonp\(/.test(body)).to.be.true;
+		});
+
+	});
+
+	after(function(done) {
+		changeTimeStamp();
+		done();
+	});
+
+});
+
+
+describe('auto-match', function() {
+
+	this.timeout(5000);
+
+	describe('ajax', function() {
+
+		this.timeout(5000);
+
+		var error;
+		var body;
+		var json;
+
+		before(function(done) {
+			$request(host + '/demo/api', function(err, rs, bd) {
+				error = err;
+				body = bd;
+				try {
+					json = JSON.parse(body);
+				} catch (err) {
+					console.log(err);
+				}
+				done();
+			});
+		});
+
+		it('api 接口正常访问', function() {
+			$chai.expect(!error).to.be.true;
+		});
+
+		it('json 内容可修改', function() {
+			var data = json;
+			$chai.expect(data).to.be.an('object');
+			$chai.expect(data.ret).to.equal(1);
+			$chai.expect(data.msg).to.equal('modified');
 		});
 
 	});

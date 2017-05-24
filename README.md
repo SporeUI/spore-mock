@@ -118,7 +118,7 @@ module.exports = {
 
 访问的页面添加 fedebug=json 参数可直接查看 json 配置
 
-支持多种模板
+支持自定义模板渲染方式
 
 模板入口数据为 `htmlWebpackPlugin.options.mock`
 

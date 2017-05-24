@@ -1,5 +1,5 @@
 # spore-mock
-一个mock服务，支持mock数据模块化
+一个mock服务，支持mock数据模块化处理
 
 ## Getting Start
 
@@ -23,7 +23,19 @@ $sporeMock({
 
 ```
 
-## 配置文件范例
+配置文件 mock.js
+```script
+var $path = require('path');
+
+module.exports = {
+	root: $path.resolve(__dirname),
+	mock: './'
+};
+```
+
+参见 example 下的极简示例
+
+## 详细配置文件范例
 
 mock.js:
 

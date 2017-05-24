@@ -24,9 +24,9 @@ html
 				h4 page list:
 				ol
 					each path in out.pages
-						- path = path.replace(/\.pug$/, '.html')
+						- path = path.replace(/\.[^\.]+$/, '');
 						li
-							a(href='html/' + path, target="_blank") #{path}
+							a(href=path, target="_blank") #{path}
 
 		if out.qrlinks
 			ul.p-qrbox

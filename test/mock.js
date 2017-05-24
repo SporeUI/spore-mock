@@ -1,8 +1,11 @@
 var $path = require('path');
 
 module.exports = {
+	debug: true,
 	root: $path.resolve(__dirname),
 	port: '8091',
+	mock: './src/mock',
+	entry: './src/entry',
 	// 链接列表，用于显示到首页
 	links: [
 		{
@@ -26,5 +29,14 @@ module.exports = {
 			route: 'static',
 			path: 'src/mock/static'
 		}
-	]
+	],
+	mockFormat: function(mockData) {
+		return {
+			htmlWebpackPlugin: {
+				options: {
+					mock: mockData
+				}
+			}
+		};
+	}
 };

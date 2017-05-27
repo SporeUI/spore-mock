@@ -136,6 +136,7 @@ mock 文件可执行，可通过 `module.exports = function(res, req){}` 来动�
 
 ## Release History
 
+ * 2017-05-27 v0.3.1 更新 pug 版本为 2.0.0-rc.1
  * 2017-05-24 v0.3.0 精简配置项，没有对应模板的mock数据访问时以接口形式输出
  * 2017-05-02 v0.2.2 改进默认首页样式
  * 2017-04-17 v0.2.1 使用 mockjs 自动生成 mock 数据

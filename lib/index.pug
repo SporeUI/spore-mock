@@ -24,7 +24,7 @@ html
 				h4 page list:
 				ol
 					each path in out.pages
-						- path = path.replace(/\.[^\.]+$/, '');
+						- path = path.replace(/\.[^\.]+$/, '.html');
 						li
 							a(href=path, target="_blank") #{path}
 

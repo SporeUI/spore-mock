@@ -41,17 +41,17 @@ describe('index', function() {
 		});
 
 		it('展示 entry 链接', function() {
-			$chai.expect(/href="\/html\/demo\/static"/.test(body)).to.be.true;
-			$chai.expect(/href="\/html\/demo\/test"/.test(body)).to.be.true;
+			$chai.expect(body).to.include('href="/html/demo/static.html"');
+			$chai.expect(body).to.include('href="/html/demo/test.html"');
 		});
 
 		it('展示二维码链接', function() {
-			$chai.expect(/data-qrlink="http:\/\/[\d\.]+:8090"/.test(body)).to.be.true;
+			$chai.expect(body).to.match(/data-qrlink="http:\/\/[\d\.]+:8090"/);
 		});
 
 		it('展示其他链接', function() {
-			$chai.expect(/href="http:\/\/[\d\.]+:8091"/.test(body)).to.be.true;
-			$chai.expect(/href="http:\/\/[\d\.]+:8092"/.test(body)).to.be.true;
+			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8091"/);
+			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8092"/);
 		});
 
 	});
@@ -112,7 +112,7 @@ describe('entry', function() {
 		});
 
 		it('静态页面内容正常展示', function() {
-			$chai.expect(/<title>static<\/title>/.test(body)).to.be.true;
+			$chai.expect(body).to.include('<title>static</title>');
 		});
 
 	});
@@ -137,7 +137,7 @@ describe('entry', function() {
 		});
 
 		it('pug 渲染内容正常展示', function() {
-			$chai.expect(/<title>test.pug<\/title>/.test(body)).to.be.true;
+			$chai.expect(body).to.include('<title>test.pug</title>');
 		});
 
 	});

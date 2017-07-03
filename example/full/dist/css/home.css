@@ -1,0 +1,21 @@
+.container{
+	margin: 10px auto;
+	color: #fff;
+}
+
+.list .name{
+	color: #f5bb5a;
+}
+
+.list .name::after{
+	content: ':';
+}
+
+.list .value{
+	color: #9afb7e;
+	margin-left: 10px;
+}
+
+.btn{
+	margin: 10px auto;
+}

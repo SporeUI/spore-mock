@@ -1,0 +1,21 @@
+- var out = htmlWebpackPlugin.options.mock;
+doctype html
+html
+	head
+		include ../mods/common/head.pug
+		title 首页
+		link(rel="stylesheet", href="../css/home.css")
+	body
+		.container
+			button.btn.btn-primary.btn-lg.btn-block#button(type='button') 点击更新
+			.count
+				| 共计
+				span#count #{out.data.list.length}
+				| 项内容
+			ul.list#list
+				each item in out.data.list
+					li
+						span.name #{item.name}
+						span.value #{item.value}
+		include ../mods/common/boot.pug
+		script(src="../js/home.js")

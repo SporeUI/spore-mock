@@ -19,7 +19,6 @@ spore-mock -c ./mock.js
 
 ```script
 var $sporeMock = require('spore-mock');
-
 $sporeMock({
 	configFilePath: './mock.js'
 });

@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.5.6",
+    "http-proxy-middleware": "^0.17.4",
     "install": "^0.10.1",
     "npm": "^5.0.4"
   }

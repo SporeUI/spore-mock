@@ -29,10 +29,12 @@
     "commander": "^2.9.0",
     "cors": "^2.8.1",
     "express": "^4.15.0",
+    "http-proxy-middleware": "^0.17.4",
     "ip": "^1.1.4",
     "lodash": "^4.17.4",
     "mockjs": "^1.0.1-beta3",
     "pug": "^2.0.0-rc.1",
+    "spore-kit-obj": "^0.1.2",
     "spore-kit-str": "^0.2.0",
     "walk-sync": "^0.3.1"
   },

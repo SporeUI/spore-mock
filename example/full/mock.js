@@ -1,6 +1,7 @@
 var $fs = require('fs');
 var $path = require('path');
 var $ejs = require('ejs');
+var $proxy = require('http-proxy-middleware');
 
 module.exports = {
 
@@ -61,6 +62,34 @@ module.exports = {
 			}
 		};
 	},
+
+	proxy: [{
+		// 反向代理示例
+		// 到 http://127.0.0.1:8090/proxy/index.php 的请求，都会转发到
+		// http://m.db.house.qq.com/index.php
+		// 例: http://127.0.0.1:8090/proxy/index.php?mod=city&act=geocoderbyip
+		route: '/proxy/index.php',
+		proxy: {
+			target: 'http://openapi.house.qq.com',
+			changeOrigin: true,
+			logLevel: 'debug',
+			secure: false
+		}
+	}],
+
+	middleware: [{
+		// 中间件示例
+		// 到 http://127.0.0.1:8090/middleware/index.php 的请求，都会转发到
+		// http://m.db.house.qq.com/index.php
+		// 例: http://127.0.0.1:8090/middleware/index.php?mod=city&act=geocoderbyip
+		route: '/middleware/index.php',
+		handle: $proxy({
+			target: 'http://openapi.house.qq.com',
+			changeOrigin: true,
+			logLevel: 'debug',
+			secure: false
+		})
+	}],
 
 	// 模板解析器，可自定义使用何种模板渲染数据
 	// 默认已支持 pug 模板渲染

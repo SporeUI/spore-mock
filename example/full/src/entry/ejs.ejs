@@ -1,0 +1,32 @@
+<% var out = htmlWebpackPlugin.options.mock; %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/assets/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/global.css">
+	<title>首页</title>
+	<link rel="stylesheet" href="../css/home.css"></head>
+<body>
+	<div class="container">
+		<button class="btn btn-primary btn-lg btn-block" id="button" type="button">点击更新</button>
+		<div class="count">
+			共计
+			<span id="count"><%= out.data.list.length %></span>
+			项内容
+		</div>
+		<ul class="list" id="list">
+			<% out.data.list.forEach(function(item){ %>
+			<li>
+				<span class="name"><%= item.name %></span>
+				<span class="value"><%= item.value %></span>
+			</li>
+			<% }); %>
+		</ul>
+	</div>
+	<script src="/assets/jquery-3.2.1.min.js"></script>
+	<script src="../js/home.js"></script>
+</body>
+</html>

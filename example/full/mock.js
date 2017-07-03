@@ -1,5 +1,6 @@
 var $fs = require('fs');
 var $path = require('path');
+var $ejs = require('ejs');
 
 module.exports = {
 
@@ -26,19 +27,19 @@ module.exports = {
 	// 链接列表，用于显示到首页
 	links: [
 		{
-			href: 'http://{{publicIp}}:8091',
-			text: 'Mock服务 http://{{publicIp}}:8091'
+			href: 'http://{{publicIp}}:8091/html/home.html',
+			text: '首页'
 		},
 		{
-			href: 'http://{{publicIp}}:8092',
-			text: '代理服务 http://{{publicIp}}:8092'
+			href: 'http://{{publicIp}}:8091/html/text.html',
+			text: '文本页面'
 		}
 	],
 
 	// 二维码链接列表，用于显示到 mock 服务首页
 	qrlinks: [{
-		href: 'http://{{publicIp}}:8090',
-		text: '开发服务 http://{{publicIp}}:8090'
+		href: 'http://{{publicIp}}:8091',
+		text: '开发服务 http://{{publicIp}}:8091'
 	}],
 
 	// 指定静态文件路径
@@ -64,10 +65,19 @@ module.exports = {
 	// 模板解析器，可自定义使用何种模板渲染数据
 	// 默认已支持 pug 模板渲染
 	render: [{
+		// 渲染 *.txt 文件
 		extname: 'txt',
 		parse: function(file, data) {
 			return $fs.readFileSync(file, 'utf8');
 		}
+	}, {
+		// 渲染 *.ejx 文件
+		extname: 'ejs',
+		parse: function(file, data) {
+			var str = $fs.readFileSync(file, 'utf8');
+			return $ejs.render(str, data);
+		}
 	}]
 };
+
 

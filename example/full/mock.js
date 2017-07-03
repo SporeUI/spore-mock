@@ -71,7 +71,7 @@ module.exports = {
 			return $fs.readFileSync(file, 'utf8');
 		}
 	}, {
-		// 渲染 *.ejx 文件
+		// 渲染 *.ejs 文件
 		extname: 'ejs',
 		parse: function(file, data) {
 			var str = $fs.readFileSync(file, 'utf8');

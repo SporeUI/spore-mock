@@ -1,7 +1,7 @@
 {
   "name": "spore-mock",
-  "version": "0.3.2",
-  "description": "一个mock服务，支持mock数据模块化",
+  "version": "0.3.3",
+  "description": "轻量级 mock 服务，支持 mock 数据模块化",
   "main": "index.js",
   "scripts": {
     "test": "gulp test"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/SporeUI/spore-mock.git"
   },
-  "author": "TabSpace",
+  "author": "TabSpace <pillar0514@163.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SporeUI/spore-mock/issues"
@@ -20,6 +20,9 @@
     "lib",
     "index.js"
   ],
+  "bin": {
+    "spore-mock": "./bin/spore-mock"
+  },
   "homepage": "https://github.com/SporeUI/spore-mock#readme",
   "dependencies": {
     "colors": "^1.1.2",

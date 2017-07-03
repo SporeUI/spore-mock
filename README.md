@@ -2,7 +2,7 @@
 
 轻量级 mock 服务，模块化组织 mock 数据，数据自动更新
 
-## Getting Start
+## Getting Started
 
 点击查看[详细文档](https://tabspace.gitbooks.io/spore-mock/content/)
 
@@ -29,7 +29,6 @@ $sporeMock({
 配置文件 mock.js
 ```script
 var $path = require('path');
-
 module.exports = {
 	root: $path.resolve(__dirname),
 	mock: './'

@@ -6,11 +6,11 @@ module.exports = {
 	// 若要进入调试模式，设置为 true , 默认为 false
 	debug: true,
 
-	// 下面各个路径的根路径
+	// web服务根路径
 	root: $path.resolve(__dirname),
 
 	// mock 服务端口
-	port: '8091',
+	port: 8091,
 
 	// mock 数据文件所在路径
 	mock: './src/mock',

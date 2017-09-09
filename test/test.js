@@ -27,22 +27,30 @@ describe('index', function() {
 
 		let error;
 		let body;
+		let res;
 
 		before(done => {
 			$request(host, (err, rs, bd) => {
 				error = err;
 				body = bd;
+				res = rs;
 				done();
 			});
 		});
 
 		it('正常访问首页', () => {
 			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
 		});
 
 		it('展示 entry 链接', () => {
 			$chai.expect(body).to.include('href="/html/demo/static.html"');
 			$chai.expect(body).to.include('href="/html/demo/test.html"');
+		});
+
+		it('展示 api 链接', () => {
+			$chai.expect(body).to.include('href="/api/null"');
+			$chai.expect(body).to.include('href="/api/test"');
 		});
 
 		it('展示二维码链接', () => {
@@ -62,17 +70,20 @@ describe('index', function() {
 
 		let error;
 		let body;
+		let res;
 
 		before(done => {
 			$request(host + '?fedebug=json', (err, rs, bd) => {
 				error = err;
 				body = bd;
+				res = rs;
 				done();
 			});
 		});
 
 		it('正常访问首页的 debug 模式', () => {
 			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
 		});
 
 		it('得到的内容是一个 json', () => {
@@ -98,17 +109,20 @@ describe('entry', function() {
 
 		let error;
 		let body;
+		let res;
 
 		before(done => {
 			$request(host + '/demo/static.html', (err, rs, bd) => {
 				error = err;
 				body = bd;
+				res = rs;
 				done();
 			});
 		});
 
 		it('静态页面可正常访问', () => {
 			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
 		});
 
 		it('静态页面内容正常展示', () => {
@@ -199,11 +213,13 @@ describe('api', function() {
 		let error;
 		let body;
 		let json;
+		let res;
 
 		before(done => {
 			$request(host + '/api/test', (err, rs, bd) => {
 				error = err;
 				body = bd;
+				res = rs;
 				try {
 					json = JSON.parse(body);
 				} catch (err) {
@@ -215,6 +231,7 @@ describe('api', function() {
 
 		it('api 接口正常访问', () => {
 			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
 		});
 
 		it('接口输出为一个json', () => {
@@ -243,11 +260,13 @@ describe('api', function() {
 		this.timeout(5000);
 
 		let error;
+		let res;
 		let body;
 
 		before(done => {
 			$request(host + '/api/test?callback=jsonp', (err, rs, bd) => {
 				error = err;
+				res = rs;
 				body = bd;
 				done();
 			});
@@ -255,6 +274,7 @@ describe('api', function() {
 
 		it('api 接口正常访问', () => {
 			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
 		});
 
 		it('为jsonp格式', () => {
@@ -263,9 +283,26 @@ describe('api', function() {
 
 	});
 
-	after(done => {
-		changeTimeStamp();
-		done();
+	describe('null', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+
+		before(done => {
+			$request(host + '/api/null', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				done();
+			});
+		});
+
+		it('访问结果应该为404', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(404);
+		});
+
 	});
 
 });
@@ -282,11 +319,13 @@ describe('auto-match', function() {
 		let error;
 		let body;
 		let json;
+		let res;
 
 		before(done => {
 			$request(host + '/demo/api', (err, rs, bd) => {
 				error = err;
 				body = bd;
+				res = rs;
 				try {
 					json = JSON.parse(body);
 				} catch (err) {
@@ -298,6 +337,7 @@ describe('auto-match', function() {
 
 		it('api 接口正常访问', () => {
 			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
 		});
 
 		it('json 内容可修改', () => {

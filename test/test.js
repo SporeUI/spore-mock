@@ -11,17 +11,17 @@ const after = $mocha.after;
 
 const host = 'http://127.0.0.1:8091';
 
-function changeTimeStamp(str) {
+const changeTimeStamp = str => {
 	str = str || '123123';
 	const file = './test/src/mods/timestamp.js';
 	let content = $fs.readFileSync(file, 'utf8');
 	content = content.replace(/\d+/, str);
 	$fs.writeFileSync(file, content);
-}
+};
 
-describe('index', () => {
+describe('index', function() {
 
-	describe('#page', () => {
+	describe('#page', function() {
 
 		this.timeout(5000);
 
@@ -56,7 +56,7 @@ describe('index', () => {
 
 	});
 
-	describe('#debug', () => {
+	describe('#debug', function() {
 
 		this.timeout(5000);
 
@@ -90,9 +90,9 @@ describe('index', () => {
 
 });
 
-describe('entry', () => {
+describe('entry', function() {
 
-	describe('static', () => {
+	describe('static', function() {
 
 		this.timeout(5000);
 
@@ -117,7 +117,7 @@ describe('entry', () => {
 
 	});
 
-	describe('pug', () => {
+	describe('pug', function() {
 
 		this.timeout(5000);
 
@@ -142,7 +142,7 @@ describe('entry', () => {
 
 	});
 
-	describe('debug', () => {
+	describe('debug', function() {
 
 		this.timeout(5000);
 
@@ -188,11 +188,11 @@ describe('entry', () => {
 
 });
 
-describe('api', () => {
+describe('api', function() {
 
 	this.timeout(5000);
 
-	describe('ajax', () => {
+	describe('ajax', function() {
 
 		this.timeout(5000);
 
@@ -238,7 +238,7 @@ describe('api', () => {
 
 	});
 
-	describe('jsonp', () => {
+	describe('jsonp', function() {
 
 		this.timeout(5000);
 
@@ -271,11 +271,11 @@ describe('api', () => {
 });
 
 
-describe('auto-match', () => {
+describe('auto-match', function() {
 
 	this.timeout(5000);
 
-	describe('ajax', () => {
+	describe('ajax', function() {
 
 		this.timeout(5000);
 

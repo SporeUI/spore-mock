@@ -1,82 +1,82 @@
-var $fs = require('fs');
+const $fs = require('fs');
 
-var $chai = require('chai');
-var $mocha = require('mocha');
-var $request = require('request');
+const $chai = require('chai');
+const $mocha = require('mocha');
+const $request = require('request');
 
-var describe = $mocha.describe;
-var it = $mocha.it;
-var before = $mocha.before;
-var after = $mocha.after;
+const describe = $mocha.describe;
+const it = $mocha.it;
+const before = $mocha.before;
+const after = $mocha.after;
 
-var host = 'http://127.0.0.1:8091';
+const host = 'http://127.0.0.1:8091';
 
 function changeTimeStamp(str) {
 	str = str || '123123';
-	var file = './test/src/mods/timestamp.js';
-	var content = $fs.readFileSync(file, 'utf8');
+	const file = './test/src/mods/timestamp.js';
+	let content = $fs.readFileSync(file, 'utf8');
 	content = content.replace(/\d+/, str);
 	$fs.writeFileSync(file, content);
 }
 
-describe('index', function() {
+describe('index', () => {
 
-	describe('#page', function() {
+	describe('#page', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
+		let error;
+		let body;
 
-		before(function(done) {
-			$request(host, function(err, rs, bd) {
+		before(done => {
+			$request(host, (err, rs, bd) => {
 				error = err;
 				body = bd;
 				done();
 			});
 		});
 
-		it('正常访问首页', function() {
+		it('正常访问首页', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('展示 entry 链接', function() {
+		it('展示 entry 链接', () => {
 			$chai.expect(body).to.include('href="/html/demo/static.html"');
 			$chai.expect(body).to.include('href="/html/demo/test.html"');
 		});
 
-		it('展示二维码链接', function() {
+		it('展示二维码链接', () => {
 			$chai.expect(body).to.match(/data-qrlink="http:\/\/[\d\.]+:8090"/);
 		});
 
-		it('展示其他链接', function() {
+		it('展示其他链接', () => {
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8091"/);
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8092"/);
 		});
 
 	});
 
-	describe('#debug', function() {
+	describe('#debug', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
+		let error;
+		let body;
 
-		before(function(done) {
-			$request(host + '?fedebug=json', function(err, rs, bd) {
+		before(done => {
+			$request(host + '?fedebug=json', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				done();
 			});
 		});
 
-		it('正常访问首页的 debug 模式', function() {
+		it('正常访问首页的 debug 模式', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('得到的内容是一个 json', function() {
-			var data = null;
+		it('得到的内容是一个 json', () => {
+			let data = null;
 			try {
 				data = JSON.parse(body);
 			} catch (err) {
@@ -90,80 +90,80 @@ describe('index', function() {
 
 });
 
-describe('entry', function() {
+describe('entry', () => {
 
-	describe('static', function() {
+	describe('static', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
+		let error;
+		let body;
 
-		before(function(done) {
-			$request(host + '/demo/static.html', function(err, rs, bd) {
+		before(done => {
+			$request(host + '/demo/static.html', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				done();
 			});
 		});
 
-		it('静态页面可正常访问', function() {
+		it('静态页面可正常访问', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('静态页面内容正常展示', function() {
+		it('静态页面内容正常展示', () => {
 			$chai.expect(body).to.include('<title>static</title>');
 		});
 
 	});
 
-	describe('pug', function() {
+	describe('pug', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
+		let error;
+		let body;
 
-		before(function(done) {
-			$request(host + '/demo/test.html', function(err, rs, bd) {
+		before(done => {
+			$request(host + '/demo/test.html', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				done();
 			});
 		});
 
-		it('pug 渲染页面可正常访问', function() {
+		it('pug 渲染页面可正常访问', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('pug 渲染内容正常展示', function() {
+		it('pug 渲染内容正常展示', () => {
 			$chai.expect(body).to.include('<title>test.pug</title>');
 		});
 
 	});
 
-	describe('debug', function() {
+	describe('debug', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
+		let error;
+		let body;
 
-		before(function(done) {
+		before(done => {
 			changeTimeStamp(456456);
-			$request(host + '/demo/test.html?fedebug=json', function(err, rs, bd) {
+			$request(host + '/demo/test.html?fedebug=json', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				done();
 			});
 		});
 
-		it('pug debug 模式可正常访问', function() {
+		it('pug debug 模式可正常访问', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('pug debug 模式输出一个 json', function() {
-			var data = null;
+		it('pug debug 模式输出一个 json', () => {
+			let data = null;
 			try {
 				data = JSON.parse(body);
 			} catch (err) {
@@ -173,8 +173,8 @@ describe('entry', function() {
 			$chai.expect(data.title).to.equal('test.pug');
 		});
 
-		it('json 内容可以实时更新', function() {
-			var data = null;
+		it('json 内容可以实时更新', () => {
+			let data = null;
 			try {
 				data = JSON.parse(body);
 			} catch (err) {
@@ -188,20 +188,20 @@ describe('entry', function() {
 
 });
 
-describe('api', function() {
+describe('api', () => {
 
 	this.timeout(5000);
 
-	describe('ajax', function() {
+	describe('ajax', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
-		var json;
+		let error;
+		let body;
+		let json;
 
-		before(function(done) {
-			$request(host + '/api/test', function(err, rs, bd) {
+		before(done => {
+			$request(host + '/api/test', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				try {
@@ -213,57 +213,57 @@ describe('api', function() {
 			});
 		});
 
-		it('api 接口正常访问', function() {
+		it('api 接口正常访问', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('接口输出为一个json', function() {
-			var data = json;
+		it('接口输出为一个json', () => {
+			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(0);
 			$chai.expect(data.msg).to.equal('test ok');
 		});
 
-		it('json 内容可以实时更新', function() {
-			var data = json;
+		it('json 内容可以实时更新', () => {
+			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.timestamp.timestamp).to.equal('456456');
 		});
 
-		it('json 列表数据自动mock', function() {
-			var data = json;
+		it('json 列表数据自动mock', () => {
+			let data = json;
 			$chai.expect(data.list).to.be.an('array');
 			$chai.expect(data.list.length).to.equal(10);
 		});
 
 	});
 
-	describe('jsonp', function() {
+	describe('jsonp', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
+		let error;
+		let body;
 
-		before(function(done) {
-			$request(host + '/api/test?callback=jsonp', function(err, rs, bd) {
+		before(done => {
+			$request(host + '/api/test?callback=jsonp', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				done();
 			});
 		});
 
-		it('api 接口正常访问', function() {
+		it('api 接口正常访问', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('为jsonp格式', function() {
+		it('为jsonp格式', () => {
 			$chai.expect(/^jsonp\(/.test(body)).to.be.true;
 		});
 
 	});
 
-	after(function(done) {
+	after(done => {
 		changeTimeStamp();
 		done();
 	});
@@ -271,20 +271,20 @@ describe('api', function() {
 });
 
 
-describe('auto-match', function() {
+describe('auto-match', () => {
 
 	this.timeout(5000);
 
-	describe('ajax', function() {
+	describe('ajax', () => {
 
 		this.timeout(5000);
 
-		var error;
-		var body;
-		var json;
+		let error;
+		let body;
+		let json;
 
-		before(function(done) {
-			$request(host + '/demo/api', function(err, rs, bd) {
+		before(done => {
+			$request(host + '/demo/api', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				try {
@@ -296,12 +296,12 @@ describe('auto-match', function() {
 			});
 		});
 
-		it('api 接口正常访问', function() {
+		it('api 接口正常访问', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('json 内容可修改', function() {
-			var data = json;
+		it('json 内容可修改', () => {
+			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(1);
 			$chai.expect(data.msg).to.equal('modified');
@@ -309,7 +309,7 @@ describe('auto-match', function() {
 
 	});
 
-	after(function(done) {
+	after(done => {
 		changeTimeStamp();
 		done();
 	});

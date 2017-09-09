@@ -7,7 +7,7 @@ var data = {
 	msg: 'test ok'
 };
 
-module.exports = function(req, res) {
+module.exports = (req, res) => {
 	data.ret = 1;
 	data.msg = 'modified';
 	return data;

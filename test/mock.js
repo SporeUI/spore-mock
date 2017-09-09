@@ -1,5 +1,5 @@
-var $fs = require('fs');
-var $path = require('path');
+const $fs = require('fs');
+const $path = require('path');
 
 module.exports = {
 
@@ -51,15 +51,13 @@ module.exports = {
 	],
 
 	// mock数据渲染前统一格式化函数
-	mockFormat: function(mockData) {
-		return {
-			htmlWebpackPlugin: {
-				options: {
-					mock: mockData
-				}
+	mockFormat: mockData => ({
+		htmlWebpackPlugin: {
+			options: {
+				mock: mockData
 			}
-		};
-	},
+		}
+	}),
 
 	// 自定义中间件
 	middleware: [],
@@ -71,9 +69,7 @@ module.exports = {
 	// 默认已支持 pug 模板渲染
 	render: [{
 		extname: 'txt',
-		parse: function(file, data) {
-			return $fs.readFileSync(file, 'utf8');
-		}
+		parse: (file, data) => $fs.readFileSync(file, 'utf8')
 	}]
 };
 

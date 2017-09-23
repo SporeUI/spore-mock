@@ -1,6 +1,6 @@
 {
   "name": "spore-mock",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "轻量级 mock 服务，支持 mock 数据模块化",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/SporeUI/spore-mock#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "cors": "^2.8.1",

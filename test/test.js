@@ -38,26 +38,26 @@ describe('index', function() {
 			});
 		});
 
-		it('正常访问首页', () => {
+		it('Get home page', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('展示 entry 链接', () => {
+		it('Display entries', () => {
 			$chai.expect(body).to.include('href="/html/demo/static.html"');
 			$chai.expect(body).to.include('href="/html/demo/test.html"');
 		});
 
-		it('展示 api 链接', () => {
+		it('Display api links', () => {
 			$chai.expect(body).to.include('href="/api/null"');
 			$chai.expect(body).to.include('href="/api/test"');
 		});
 
-		it('展示二维码链接', () => {
+		it('Display qr links', () => {
 			$chai.expect(body).to.match(/data-qrlink="http:\/\/[\d\.]+:8090"/);
 		});
 
-		it('展示其他链接', () => {
+		it('Display other links', () => {
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8091"/);
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8092"/);
 		});
@@ -81,12 +81,12 @@ describe('index', function() {
 			});
 		});
 
-		it('正常访问首页的 debug 模式', () => {
+		it('Support fedebug=json mode', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('得到的内容是一个 json', () => {
+		it('Get json from request', () => {
 			let data = null;
 			try {
 				data = JSON.parse(body);
@@ -120,12 +120,12 @@ describe('entry', function() {
 			});
 		});
 
-		it('静态页面可正常访问', () => {
+		it('Support static page', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('静态页面内容正常展示', () => {
+		it('Display static page', () => {
 			$chai.expect(body).to.include('<title>static</title>');
 		});
 
@@ -146,11 +146,11 @@ describe('entry', function() {
 			});
 		});
 
-		it('pug 渲染页面可正常访问', () => {
+		it('Support pug page', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('pug 渲染内容正常展示', () => {
+		it('Display pug page', () => {
 			$chai.expect(body).to.include('<title>test.pug</title>');
 		});
 
@@ -172,11 +172,11 @@ describe('entry', function() {
 			});
 		});
 
-		it('pug debug 模式可正常访问', () => {
+		it('Support pug fedebug=json mode', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('pug debug 模式输出一个 json', () => {
+		it('Display json in debug mode', () => {
 			let data = null;
 			try {
 				data = JSON.parse(body);
@@ -187,7 +187,7 @@ describe('entry', function() {
 			$chai.expect(data.title).to.equal('test.pug');
 		});
 
-		it('json 内容可以实时更新', () => {
+		it('Update json immediately', () => {
 			let data = null;
 			try {
 				data = JSON.parse(body);
@@ -229,25 +229,25 @@ describe('api', function() {
 			});
 		});
 
-		it('api 接口正常访问', () => {
+		it('Support ajax request', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('接口输出为一个json', () => {
+		it('Get json from ajax request', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(0);
 			$chai.expect(data.msg).to.equal('test ok');
 		});
 
-		it('json 内容可以实时更新', () => {
+		it('Update json immediately', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.timestamp.timestamp).to.equal('456456');
 		});
 
-		it('json 列表数据自动mock', () => {
+		it('Support mock.js', () => {
 			let data = json;
 			$chai.expect(data.list).to.be.an('array');
 			$chai.expect(data.list.length).to.equal(10);
@@ -272,12 +272,12 @@ describe('api', function() {
 			});
 		});
 
-		it('api 接口正常访问', () => {
+		it('Support jsonp', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('为jsonp格式', () => {
+		it('Get jsonp callback in jsonp request', () => {
 			$chai.expect(/^jsonp\(/.test(body)).to.be.true;
 		});
 
@@ -298,9 +298,103 @@ describe('api', function() {
 			});
 		});
 
-		it('访问结果应该为404', () => {
+		it('Support 404', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(404);
+		});
+
+	});
+
+	describe('post', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+		let body;
+		let json;
+
+		before(done => {
+			$request.post(
+				{
+					url: host + '/api/post',
+					form: {
+						s: 'string'
+					}
+				},
+				(err, rs, bd) => {
+					error = err;
+					res = rs;
+					body = bd;
+					try {
+						json = JSON.parse(body);
+					} catch (err) {
+						console.log(err);
+					}
+					done();
+				}
+			);
+		});
+
+		it('Support post (request.headers["content-type"]="application/x-www-form-urlencoded")', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+
+		it('Get json from post request', () => {
+			let data = json;
+			$chai.expect(data).to.be.an('object');
+			$chai.expect(data.s).to.equal('string');
+		});
+
+	});
+
+	describe('put', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+		let body;
+		let json;
+
+		before(done => {
+			$request.put(
+				{
+					url: host + '/api/put',
+					headers: {
+						'content-type': 'application/json'
+					},
+					body: JSON.stringify({
+						a: 1,
+						b: 2
+					})
+				},
+				(err, rs, bd) => {
+					error = err;
+					res = rs;
+					body = bd;
+					try {
+						json = JSON.parse(body);
+					} catch (err) {
+						console.log(err);
+					}
+					done();
+				}
+			);
+		});
+
+		it('Support put (request.headers["content-type"]="application/json")', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+
+		it('Get json from put request', () => {
+			let data = json;
+			$chai.expect(data).to.be.an('object');
+			$chai.expect(data.method).to.equal('PUT');
+			$chai.expect(data.a).to.equal(1);
+			$chai.expect(data.b).to.equal(2);
 		});
 
 	});

@@ -61,7 +61,6 @@ $gulp.task('test', () => $runSequence(
 	'stopServer'
 ));
 
-
 $gulp.task('default', [
 	'test'
 ]);

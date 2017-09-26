@@ -1,6 +1,6 @@
 {
   "name": "spore-mock",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "轻量级 mock 服务，支持 mock 数据模块化",
   "main": "index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "pug": "^2.0.0-rc.1",
     "spore-kit-obj": "^0.1.2",
     "spore-kit-str": "^0.2.0",
+    "stacktracey": "^1.0.59",
     "walk-sync": "^0.3.1"
   },
   "devDependencies": {

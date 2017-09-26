@@ -131,6 +131,34 @@ describe('entry', function() {
 
 	});
 
+	describe('err', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let body;
+		let res;
+
+		before(done => {
+			$request(host + '/demo/err.html', (err, rs, bd) => {
+				error = err;
+				body = bd;
+				res = rs;
+				done();
+			});
+		});
+
+		it('Support err output', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+
+		it('Display err page', () => {
+			$chai.expect(body).to.include('File parse error');
+		});
+
+	});
+
 	describe('pug', function() {
 
 		this.timeout(5000);
@@ -299,6 +327,28 @@ describe('api', function() {
 		});
 
 		it('Support 404', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(404);
+		});
+
+	});
+
+	describe('err', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+
+		before(done => {
+			$request(host + '/api/err', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				done();
+			});
+		});
+
+		it('Support err output', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(404);
 		});

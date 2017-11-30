@@ -38,7 +38,7 @@ module.exports = {
 
 ## Release History
 
- * 2017-09-26 v0.3.10 添加 ignore 选项，可按需过滤 mock 目录
+ * 2017-11-30 v0.3.10 添加 ignore 选项，可按需过滤 mock 目录
  * 2017-09-26 v0.3.9 完善报错信息处理
  * 2017-09-23 v0.3.7 支持用 req.body 便捷的接收 form post 或者 json 方式传递的数据
  * 2017-09-09 v0.3.6 mock数据为 null 时，跳过路径匹配，首页显示可用 api 列表

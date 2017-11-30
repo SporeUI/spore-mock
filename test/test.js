@@ -62,6 +62,10 @@ describe('index', function() {
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8092"/);
 		});
 
+		it('Hide ignore links', () => {
+			$chai.expect(body).not.to.include('href="/ignore/test"');
+		});
+
 	});
 
 	describe('#debug', function() {
@@ -479,16 +483,49 @@ describe('auto-match', function() {
 			});
 		});
 
-		it('api 接口正常访问', () => {
+		it('api request succeed', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('json 内容可修改', () => {
+		it('json can be modified', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(1);
 			$chai.expect(data.msg).to.equal('modified');
+		});
+
+	});
+
+	after(done => {
+		changeTimeStamp();
+		done();
+	});
+
+});
+
+describe('ignore', function() {
+
+	this.timeout(5000);
+
+	describe('ajax', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+
+		before(done => {
+			$request(host + '/ignore/test', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				done();
+			});
+		});
+
+		it('api should be 404', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(404);
 		});
 
 	});

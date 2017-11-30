@@ -15,6 +15,11 @@ module.exports = {
 	// mock 数据文件所在路径
 	mock: './src/mock',
 
+	// 可配置一个忽略列表
+	ignore: [
+		'/ignore'
+	],
+
 	// 模板文件所在路径
 	// 如果 mock 文件的相对路径 与 template 下页面相对路径一致
 	// 则该 js 提供的数据服务于对应页面

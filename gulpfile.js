@@ -19,14 +19,14 @@ $gulp.task('wait', done => {
 
 let server = null;
 
-$gulp.task('startServer', done => {
+$gulp.task('start', done => {
 	server = $crossSpawn('./bin/spore-mock', ['-c', './test/mock.js'], {
 		stdio: 'inherit'
 	});
 	setTimeout(done, 1000);
 });
 
-$gulp.task('stopServer', done => {
+$gulp.task('stop', done => {
 	if (server && server.kill) {
 		server.kill('SIGHUP');
 	}
@@ -56,9 +56,9 @@ $gulp.task('mocha', () => $gulp.src('test/test.js').pipe(
 
 $gulp.task('test', () => $runSequence(
 	'lint',
-	'startServer',
+	'start',
 	'mocha',
-	'stopServer'
+	'stop'
 ));
 
 $gulp.task('default', [

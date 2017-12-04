@@ -38,6 +38,7 @@ module.exports = {
 
 ## Release History
 
+ * 2017-12-04 v0.3.11 解决设置tmplate为一个不存在的路径时，目录界面报错的问题
  * 2017-11-30 v0.3.10 添加 ignore 选项，可按需过滤 mock 目录
  * 2017-09-26 v0.3.9 完善报错信息处理
  * 2017-09-23 v0.3.7 支持用 req.body 便捷的接收 form post 或者 json 方式传递的数据

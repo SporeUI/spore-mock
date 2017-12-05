@@ -30,7 +30,7 @@ describe('index', function() {
 		let res;
 
 		before(done => {
-			$request(host, (err, rs, bd) => {
+			$request(host + '/admin', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				res = rs;
@@ -77,7 +77,7 @@ describe('index', function() {
 		let res;
 
 		before(done => {
-			$request(host + '?fedebug=json', (err, rs, bd) => {
+			$request(host + '/admin?fedebug=json', (err, rs, bd) => {
 				error = err;
 				body = bd;
 				res = rs;

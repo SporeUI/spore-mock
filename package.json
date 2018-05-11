@@ -4,6 +4,7 @@
   "description": "轻量级 mock 服务，支持 mock 数据模块化",
   "main": "index.js",
   "scripts": {
+    "dev": "gulp start",
     "test": "gulp test"
   },
   "repository": {

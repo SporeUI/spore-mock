@@ -38,31 +38,31 @@ describe('index', function() {
 			});
 		});
 
-		it('Get home page', () => {
+		it('Should disply home page successful.', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Display entries', () => {
+		it('Should display entries', () => {
 			$chai.expect(body).to.include('href="/html/demo/static.html"');
 			$chai.expect(body).to.include('href="/html/demo/test.html"');
 		});
 
-		it('Display api links', () => {
+		it('Should display api links', () => {
 			$chai.expect(body).to.include('href="/api/null"');
 			$chai.expect(body).to.include('href="/api/test"');
 		});
 
-		it('Display qr links', () => {
+		it('Should display qr links', () => {
 			$chai.expect(body).to.match(/data-qrlink="http:\/\/[\d\.]+:8090"/);
 		});
 
-		it('Display other links', () => {
+		it('Should display other links', () => {
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8091"/);
 			$chai.expect(body).to.match(/href="http:\/\/[\d\.]+:8092"/);
 		});
 
-		it('Hide ignore links', () => {
+		it('Should hide ignore links', () => {
 			$chai.expect(body).not.to.include('href="/ignore/test"');
 		});
 
@@ -85,12 +85,12 @@ describe('index', function() {
 			});
 		});
 
-		it('Support fedebug=json mode', () => {
+		it('Should support fedebug=json mode', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Get json from request', () => {
+		it('In json mode, should get json from request', () => {
 			let data = null;
 			try {
 				data = JSON.parse(body);
@@ -124,18 +124,18 @@ describe('entry', function() {
 			});
 		});
 
-		it('Support static page', () => {
+		it('Should support static page', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Display static page', () => {
+		it('Should display static page', () => {
 			$chai.expect(body).to.include('<title>static</title>');
 		});
 
 	});
 
-	describe('err', function() {
+	describe('err-page', function() {
 
 		this.timeout(5000);
 
@@ -152,12 +152,12 @@ describe('entry', function() {
 			});
 		});
 
-		it('Support err output', () => {
+		it('Should support err page output', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Display err page', () => {
+		it('Should display err page', () => {
 			$chai.expect(body).to.include('File parse error');
 		});
 
@@ -178,11 +178,11 @@ describe('entry', function() {
 			});
 		});
 
-		it('Support pug page', () => {
+		it('Should support pug page', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('Display pug page', () => {
+		it('Should display pug page', () => {
 			$chai.expect(body).to.include('<title>test.pug</title>');
 		});
 
@@ -204,11 +204,11 @@ describe('entry', function() {
 			});
 		});
 
-		it('Support pug fedebug=json mode', () => {
+		it('Should support pug page fedebug=json mode', () => {
 			$chai.expect(!error).to.be.true;
 		});
 
-		it('Display json in debug mode', () => {
+		it('In pug page json mode, should get json from request', () => {
 			let data = null;
 			try {
 				data = JSON.parse(body);
@@ -219,7 +219,7 @@ describe('entry', function() {
 			$chai.expect(data.title).to.equal('test.pug');
 		});
 
-		it('Update json immediately', () => {
+		it('In pug page json mode, json should be updated immediately', () => {
 			let data = null;
 			try {
 				data = JSON.parse(body);
@@ -256,30 +256,31 @@ describe('api', function() {
 					json = JSON.parse(body);
 				} catch (err) {
 					console.log(err);
+					error = err;
 				}
 				done();
 			});
 		});
 
-		it('Support ajax request', () => {
+		it('Shuold support ajax request', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Get json from ajax request', () => {
+		it('Should get json from ajax request', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(0);
 			$chai.expect(data.msg).to.equal('test ok');
 		});
 
-		it('Update json immediately', () => {
+		it('For ajax request, json should be updated immediately', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.timestamp.timestamp).to.equal('456456');
 		});
 
-		it('Support mock.js', () => {
+		it('Should support mock.js', () => {
 			let data = json;
 			$chai.expect(data.list).to.be.an('array');
 			$chai.expect(data.list.length).to.equal(10);
@@ -304,19 +305,18 @@ describe('api', function() {
 			});
 		});
 
-		it('Support jsonp', () => {
+		it('Should support jsonp', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Get jsonp callback in jsonp request', () => {
+		it('Should get jsonp callback in jsonp request', () => {
 			$chai.expect(/^jsonp\(/.test(body)).to.be.true;
 		});
 
 	});
 
 	describe('null', function() {
-
 		this.timeout(5000);
 
 		let error;
@@ -330,11 +330,30 @@ describe('api', function() {
 			});
 		});
 
-		it('Support 404', () => {
+		it('Should support null display', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+	});
+
+	describe('undefined', function() {
+		this.timeout(5000);
+
+		let error;
+		let res;
+
+		before(done => {
+			$request(host + '/api/undefined', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				done();
+			});
+		});
+
+		it('Should support undefined display as 404', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(404);
 		});
-
 	});
 
 	describe('err', function() {
@@ -352,9 +371,79 @@ describe('api', function() {
 			});
 		});
 
-		it('Support err output', () => {
+		it('Should support err api display as 404', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(404);
+		});
+
+	});
+
+	describe('promise', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+		let body;
+		let json;
+
+		before(done => {
+			$request(host + '/api/promise', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				body = bd;
+				try {
+					json = JSON.parse(body);
+				} catch (err) {
+					error = err;
+					console.log(err);
+				}
+				done();
+			});
+		});
+
+		it('Should support promise api', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+
+		it('Promise result should be outputed', () => {
+			$chai.expect(json.code).to.equal(0);
+		});
+
+	});
+
+	describe('fnpromise', function() {
+
+		this.timeout(5000);
+
+		let error;
+		let res;
+		let body;
+		let json;
+
+		before(done => {
+			$request(host + '/api/fnpromise', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				body = bd;
+				try {
+					json = JSON.parse(body);
+				} catch (err) {
+					error = err;
+					console.log(err);
+				}
+				done();
+			});
+		});
+
+		it('Should support promise as return value', () => {
+			$chai.expect(!error).to.be.true;
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+
+		it('Return promise result should be outputed', () => {
+			$chai.expect(json.code).to.equal(0);
 		});
 
 	});
@@ -384,18 +473,19 @@ describe('api', function() {
 						json = JSON.parse(body);
 					} catch (err) {
 						console.log(err);
+						error = err;
 					}
 					done();
 				}
 			);
 		});
 
-		it('Support post (request.headers["content-type"]="application/x-www-form-urlencoded")', () => {
+		it('Should support post (request.headers["content-type"]="application/x-www-form-urlencoded")', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Get json from post request', () => {
+		it('Should get json from post request', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.s).to.equal('string');
@@ -432,18 +522,19 @@ describe('api', function() {
 						json = JSON.parse(body);
 					} catch (err) {
 						console.log(err);
+						error = err;
 					}
 					done();
 				}
 			);
 		});
 
-		it('Support put (request.headers["content-type"]="application/json")', () => {
+		it('Should Support put (request.headers["content-type"]="application/json")', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('Get json from put request', () => {
+		it('Should get json from put request', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.method).to.equal('PUT');
@@ -478,17 +569,18 @@ describe('auto-match', function() {
 					json = JSON.parse(body);
 				} catch (err) {
 					console.log(err);
+					error = err;
 				}
 				done();
 			});
 		});
 
-		it('api request succeed', () => {
+		it('Api should request succeed', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(200);
 		});
 
-		it('json can be modified', () => {
+		it('The json should be modified', () => {
 			let data = json;
 			$chai.expect(data).to.be.an('object');
 			$chai.expect(data.ret).to.equal(1);
@@ -523,7 +615,7 @@ describe('ignore', function() {
 			});
 		});
 
-		it('api should be 404', () => {
+		it('Ignore page should be displayed as 404', () => {
 			$chai.expect(!error).to.be.true;
 			$chai.expect(res.statusCode).to.equal(404);
 		});

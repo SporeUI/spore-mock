@@ -1,11 +1,15 @@
 {
   "name": "spore-mock",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "轻量级 mock 服务，支持 mock 数据模块化",
   "main": "index.js",
   "scripts": {
     "dev": "gulp start",
-    "test": "gulp test"
+    "test": "gulp test",
+    "example-full": "./bin/spore-mock -c ./example/full/mock.js",
+    "example-mock-api": "./bin/spore-mock -c ./example/mock-api/mock.js",
+    "example-mock-page": "./bin/spore-mock -c ./example/mock-page/mock.js",
+    "example-simple": "./bin/spore-mock -c ./example/simple/mock.js"
   },
   "repository": {
     "type": "git",
@@ -45,6 +49,7 @@
     "chai": "^3.5.0",
     "cross-spawn": "^5.1.0",
     "del": "^2.2.2",
+    "ejs": "2.6.1",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
     "gulp-mocha": "^4.0.1",

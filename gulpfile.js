@@ -1,6 +1,5 @@
 const $del = require('del');
 const $crossSpawn = require('cross-spawn');
-const $runSequence = require('run-sequence');
 
 const $gulp = require('gulp');
 const $gulpMocha = require('gulp-mocha');
@@ -54,14 +53,12 @@ $gulp.task('mocha', () => $gulp.src('test/test.js').pipe(
 	$gulpMocha()
 ));
 
-$gulp.task('test', () => $runSequence(
+$gulp.task('test', $gulp.series(
 	'lint',
 	'start',
 	'mocha',
 	'stop'
 ));
 
-$gulp.task('default', [
-	'test'
-]);
+$gulp.task('default', $gulp.series('test'));
 

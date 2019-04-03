@@ -68,7 +68,32 @@ module.exports = {
 	middleware: [],
 
 	// 反向代理配置
-	proxy: [],
+	proxy: [
+		{
+			// 反向代理示例
+			// 实际路径: https://openapi.house.qq.com/proxy/index.php?mod=city&act=geocoderbyip
+			// 代理路径: http://127.0.0.1:8091/proxy/index.php?mod=city&act=geocoderbyip
+			route: '/proxy/index.php',
+			proxy: {
+				target: 'https://openapi.house.qq.com',
+				changeOrigin: true,
+				logLevel: 'debug',
+				secure: false
+			}
+		},
+		{
+			// 示例请求
+			// 实际路径: https://twlt-app.wiiqq.com/xn/wxapp/api/scenic_detail
+			// 代理路径: http://127.0.0.1:8091/xn/wxapp/api/scenic_detail
+			route: '/xn',
+			proxy: {
+				target: 'https://twlt-app.wiiqq.com',
+				changeOrigin: true,
+				logLevel: 'debug',
+				secure: false
+			}
+		}
+	],
 
 	// 模板解析器，可自定义使用何种模板渲染数据
 	// 默认已支持 pug 模板渲染

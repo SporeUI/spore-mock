@@ -35,7 +35,7 @@
     "commander": "^2.9.0",
     "cors": "^2.8.1",
     "express": "^4.15.0",
-    "http-proxy-middleware": "^0.17.4",
+    "http-proxy-middleware": "^0.19.1",
     "ip": "^1.1.4",
     "lodash": "^4.17.4",
     "mockjs": "^1.0.1-beta3",

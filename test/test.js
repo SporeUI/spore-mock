@@ -629,3 +629,49 @@ describe('ignore', function() {
 
 });
 
+describe('proxy', function() {
+	this.timeout(5000);
+
+	describe('index.php', function() {
+		this.timeout(5000);
+
+		let error;
+		let res;
+		let json = null;
+
+		before(done => {
+			$request(host + '/proxy/index.php?mod=city&act=geocoderbyip', (err, rs, bd) => {
+				error = err;
+				res = rs;
+				try {
+					json = JSON.parse(res.body);
+				} catch (err) {
+					error = err;
+				}
+				if (error) {
+					console.error('[proxy/index.php]', error);
+				}
+				console.log('res', res.body);
+				done();
+			});
+		});
+
+		it('Proxy test should no error', () => {
+			$chai.expect(!error).to.be.true;
+		});
+
+		it('Proxy api statusCode should be 200', () => {
+			$chai.expect(res.statusCode).to.equal(200);
+		});
+
+		it('Proxy api shoule get correct result', () => {
+			$chai.expect(json.code).to.equal(0);
+		});
+	});
+
+	after(done => {
+		changeTimeStamp();
+		done();
+	});
+});
+
